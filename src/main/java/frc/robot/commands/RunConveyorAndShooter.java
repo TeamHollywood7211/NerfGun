@@ -5,6 +5,7 @@ import frc.robot.subsystems.BreakBeams;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Shooter;
 import static frc.robot.Constants.*;
+
 import frc.robot.RobotContainer;
 
 /** An example command that uses an example subsystem. */
@@ -39,7 +40,7 @@ public class RunConveyorAndShooter extends CommandBase {
     while(BreakBeams.ammo>0 && RobotContainer.shootButton.get() ){ // Got bullets? Button mashed?
         Shooter.shooterLeftMotor.set(shooterMotorPower); //spin up shootermotors
         Shooter.shooterRightMotor.set(shooterMotorPower);
-        
+        while(Shooter.shooterLeftEncoder.getVelocity() <= targetShooterVelocity && Shooter.shooterRightEncoder.getVelocity() <= targetShooterVelocity){}//waits to do everything else until the motors reach a targeted rpm
         if(BreakBeams.ammo == 2){
           while(BreakBeams.TopBeamOutput() == true){ //while there is a ball at the top
           Conveyor.conveyorMotor.set(conveyorMotorPower); //run conveyor until there isnt

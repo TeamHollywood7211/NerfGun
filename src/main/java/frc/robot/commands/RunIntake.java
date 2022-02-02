@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.BreakBeams;
 import frc.robot.subsystems.Intake;
 import static frc.robot.Constants.*;
 
@@ -30,10 +31,12 @@ public class RunIntake extends CommandBase {
     //Runs consistently while the command is being scheduled
     @Override
     public void execute() {
-      if(RobotContainer.intakeButton.get()){
-        Intake.intakeMotor.set(intakeMotorPower);
-      }  else{
-        Intake.intakeMotor.set(0);
+      while(BreakBeams.ammo<2){
+        if(RobotContainer.intakeButton.get()){
+          Intake.intakeMotor.set(intakeMotorPower);
+        }  else{
+          Intake.intakeMotor.set(0);
+        }
       }
     }
     
