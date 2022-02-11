@@ -19,17 +19,15 @@ public class Shooter extends SubsystemBase {
     public static CANSparkMax shooterRightMotor;
 
     public static CANEncoder shooterLeftEncoder;
-    public static double leftMotorVelocity = Shooter.shooterLeftEncoder.getVelocity();
+    //public static double leftMotorVelocity = Shooter.shooterLeftEncoder.getVelocity();
     public static CANEncoder shooterRightEncoder;
-    public static double rightMotorVelocity = Shooter.shooterRightEncoder.getVelocity();
+    //public static double rightMotorVelocity = Shooter.shooterRightEncoder.getVelocity();
 
     public static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     public static NetworkTableEntry tv = table.getEntry("tv");
     public static NetworkTableEntry ta = table.getEntry("ta");
 
-    //this method uses the digital input from our breakbeam sensor to detect a ball.
-    //If there is a ball, our breakbeam sensor will return a false value.
-    //That false value will trigger this method to return true.
+    
 
     public Shooter() {
       shooterLeftMotor = new CANSparkMax(shooterLeftMotorID, MotorType.kBrushless);
@@ -37,7 +35,22 @@ public class Shooter extends SubsystemBase {
       shooterLeftEncoder = shooterLeftMotor.getEncoder();
       shooterRightEncoder = shooterRightMotor.getEncoder();
     }
-  
+    //This method will set the shooter motors to zero
+    public static void SetShootersZero(){
+      shooterRightMotor.set(0);
+      shooterLeftMotor.set(0);
+    }
+    //This method will set the shooter motors to normal speed
+    public static void SetShootersNormal(){
+      shooterRightMotor.set(shooterMotorPower);
+      shooterLeftMotor.set(shooterMotorPower);
+    }
+    //This method will set the shooter motors to slow speed
+    public static void SetShootersSlow(){
+      shooterRightMotor.set(shooterMotorPowerSlow);
+      shooterLeftMotor.set(shooterMotorPowerSlow);
+    }
+
     @Override
     public void periodic() {
       // This method will be called once per scheduler run

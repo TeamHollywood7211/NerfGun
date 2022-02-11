@@ -7,9 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.RunConveyor;
+import frc.robot.commands.DemoCommands.RunClimbers;
+import frc.robot.commands.RunConveyorAndShooter;
 import frc.robot.commands.RunIntake;
-import frc.robot.commands.RunShooter;
+import frc.robot.commands.DemoCommands.RunConveyor;
+import frc.robot.commands.DemoCommands.RunShooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,9 +21,11 @@ import frc.robot.commands.RunShooter;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private Command m_runConveyor = new RunConveyor(RobotContainer.m_conveyor);
   private Command m_runIntake = new RunIntake(RobotContainer.m_intake);
   private Command m_runShooter = new RunShooter(RobotContainer.m_shooter);
+  private Command m_runConveyor = new RunConveyor(RobotContainer.m_conveyor);
+  private Command m_runClimbers = new RunClimbers(RobotContainer.m_climbers);
+  private Command m_runconveyorandshooter = new RunConveyorAndShooter(RobotContainer.m_conveyor, RobotContainer.m_shooter);
   private RobotContainer m_robotContainer;
 
   /**
@@ -81,9 +85,11 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    m_runConveyor.schedule();
+    //m_runconveyorandshooter.schedule();
     m_runIntake.schedule();
+    m_runConveyor.schedule();
     m_runShooter.schedule();
+    m_runClimbers.schedule();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

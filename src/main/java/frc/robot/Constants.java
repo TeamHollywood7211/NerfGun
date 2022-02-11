@@ -18,6 +18,7 @@ public final class Constants {
     public static int frontRight1ID = 20;
     public static int backLeft1ID = 15;
     public static int backRight1ID = 25;
+    //power regulator constant is under MecanumDrivetrain subsystem
 //=============================Intake Constants==========================================//
     public static int intakeMotorID = 30;
     public static double intakeMotorPower = 0.2;
@@ -28,8 +29,17 @@ public final class Constants {
     public static int shooterLeftMotorID = 40;
     public static int shooterRightMotorID = 41;
     public static double shooterMotorPower = 0.25;
+    public static int targetShooterVelocity = 2500;
+    public static double shooterMotorPowerSlow = .12;
+    public static int targetShooterVelocitySlow = 2000;
 //=============================BreakBeam Constants=======================================//
     public static int TopBeamID = 2; 
     public static int MiddleBeamID = 1; 
     public static int HopperBeamID = 0;
+//=============================Climber Constants=========================================//
+    public static int ClimberL1ID = 50;
+    //public static int ClimberL2ID = 52;
+    public static int ClimberR1ID = 51;
+    //public static int ClimberR2ID = 53;
+    public static double climberSpeedStage1 = .25;
 }

@@ -11,19 +11,14 @@ import frc.robot.RobotContainer;
 /** An example command that uses an example subsystem. */
 public class RunConveyorAndShooter extends CommandBase {
 
-  private final Conveyor m_conveyor;
-  private final Shooter m_shooter;
   /**
    * Creates a new RunConveyor Command.
    *
-   * @param conveyor The subsystem used by this command.
+   * The subsystem used by this command.
    * 
    */
 
   public RunConveyorAndShooter(Conveyor conveyor, Shooter shooter) {
-
-    m_conveyor = conveyor;
-    m_shooter = shooter;
 
     // Use addRequirements() here to declare subsystem dependencies.
 
@@ -38,8 +33,7 @@ public class RunConveyorAndShooter extends CommandBase {
   @Override
   public void execute() {
     while(BreakBeams.ammo>0 && RobotContainer.shootButton.get() ){ // Got bullets? Button mashed?
-        Shooter.shooterLeftMotor.set(shooterMotorPower); //spin up shootermotors
-        Shooter.shooterRightMotor.set(shooterMotorPower);
+        Shooter.SetShootersNormal();
         while(Shooter.shooterLeftEncoder.getVelocity() <= targetShooterVelocity && Shooter.shooterRightEncoder.getVelocity() <= targetShooterVelocity){}//waits to do everything else until the motors reach a targeted rpm
         if(BreakBeams.ammo == 2){
           while(BreakBeams.TopBeamOutput() == true){ //while there is a ball at the top
@@ -57,8 +51,7 @@ public class RunConveyorAndShooter extends CommandBase {
           BreakBeams.ammo--;//subtract an ammo after all of the logic-ing has happened
         }
       }
-    Shooter.shooterLeftMotor.set(0);//duh
-    Shooter.shooterRightMotor.set(0);//duh
+    Shooter.SetShootersZero();
     Conveyor.conveyorMotor.set(0);//duh
 
   }

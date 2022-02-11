@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.BreakBeams;
+import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Intake;
 import static frc.robot.Constants.*;
 
@@ -31,13 +32,29 @@ public class RunIntake extends CommandBase {
     //Runs consistently while the command is being scheduled
     @Override
     public void execute() {
-      while(BreakBeams.ammo<2){
-        if(RobotContainer.intakeButton.get()){
+      //maths for if there is something detected in the hopper.
+      if(BreakBeams.HopperBeamOutput() == true){
+        if(BreakBeams.MiddleBeamOutput() == false){ //if there isnt a ball in the middle then
+          while(BreakBeams.MiddleBeamOutput() == false){ //run conveyor until there is a ball in the middle
+            Conveyor.conveyorMotor.set(conveyorMotorPower);
+          }
+        }
+        else if(BreakBeams.MiddleBeamOutput() == true){ //if there is a ball in the middle, then
+          while(BreakBeams.TopBeamOutput()==false){ //run the conveyor until there is a ball at the top
+            Conveyor.conveyorMotor.set(conveyorMotorPower);
+          }
+        }
+        BreakBeams.ammo++; //increments the ammo by one
+      }
+      //ammo decrement math is in commands/RunConveyorAndShooter.java in execute();
+
+      
+        if(RobotContainer.intakeButton.get() && BreakBeams.ammo<2){
           Intake.intakeMotor.set(intakeMotorPower);
         }  else{
           Intake.intakeMotor.set(0);
         }
-      }
+      
     }
     
     //Runs when the command ends 

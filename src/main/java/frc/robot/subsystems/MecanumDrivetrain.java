@@ -74,7 +74,7 @@ public class MecanumDrivetrain extends SubsystemBase
 
     public static double deadzone = 0.20;
     //this is negative because the gyro is now backwards on the test bot, set to one if it is moved.
-    public static double powerRegulator = -0.50;
+    public static double powerRegulator = 0.25;
     public static double returnLeftAxis(int leftAxis){
 
         double leftStick = RobotContainer.leftJoystick.getRawAxis(leftAxis);
