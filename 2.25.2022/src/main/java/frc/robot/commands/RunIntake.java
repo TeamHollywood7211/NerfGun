@@ -33,7 +33,7 @@ public class RunIntake extends CommandBase {
     @Override
     public void execute() {
       //maths for if there is something detected in the hopper.
-      /*
+      
       if(BreakBeams.HopperBeamOutput() == true){
         if(BreakBeams.MiddleBeamOutput() == false && BreakBeams.TopBeamOutput() == false){ //if there isnt a ball in the middle or at the top then
           while(BreakBeams.MiddleBeamOutput() == false){ //run conveyor until there is a ball in the middle
@@ -45,7 +45,7 @@ public class RunIntake extends CommandBase {
             Conveyor.conveyorMotor.set(conveyorMotorPower);
           }
         }
-        /*else if(BreakBeams.TopBeamOutput() == true){//If there's a ball at the top, but not the middle, run the conveyor
+        else if(BreakBeams.TopBeamOutput() == true){//If there's a ball at the top, but not the middle, run the conveyor
           while(BreakBeams.MiddleBeamOutput()== false){//backwards until it hits the middle.
             Conveyor.conveyorMotor.set(-conveyorMotorPower);
           }
@@ -55,11 +55,11 @@ public class RunIntake extends CommandBase {
           while(BreakBeams.TopBeamOutput() == false){//then, run the conveyor until there's a ball in the top
             Conveyor.conveyorMotor.set(conveyorMotorPower);
           }
-        }*/
-        /*Conveyor.conveyorMotor.set(0);//duh
+        }
+        Conveyor.conveyorMotor.set(0);//duh
         BreakBeams.ammo++; //increments the ammo by one
       }
-      */
+      
       
       //ammo decrement math is in commands/RunConveyorAndShooter.java in execute();
 
