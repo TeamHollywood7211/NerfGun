@@ -5,7 +5,7 @@ import frc.robot.RobotContainer;
 
 public class ParallelAuton extends ParallelCommandGroup{
     public ParallelAuton(){
-        addCommands(new SimpleLinearAuton(RobotContainer.m_drivetrain, RobotContainer.m_intake, RobotContainer.m_shooter, RobotContainer.m_conveyor));
+        //addCommands(new SimpleLinearAuton(RobotContainer.m_drivetrain, RobotContainer.m_intake, RobotContainer.m_shooter, RobotContainer.m_conveyor));
     }
     
 }

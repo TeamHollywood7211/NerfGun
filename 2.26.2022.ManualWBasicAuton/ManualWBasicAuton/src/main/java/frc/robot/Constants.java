@@ -29,9 +29,9 @@ public final class Constants {
 //=============================Shooter Constants=========================================//
     public static int shooterLeftMotorID = 40;
     public static int shooterRightMotorID = 41;
-    public static double shooterMotorPower = 0.25;
-    public static int targetShooterVelocity = 2500;
-    public static double shooterMotorPowerSlow = .13;
+    public static double shooterMotorPower = 0.18;
+    public static int targetShooterVelocity = 770;
+    public static double shooterMotorPowerSlow = .12;
     public static int targetShooterVelocitySlow = 500;
 //=============================BreakBeam Constants=======================================//
     public static int TopBeamID = 2; 

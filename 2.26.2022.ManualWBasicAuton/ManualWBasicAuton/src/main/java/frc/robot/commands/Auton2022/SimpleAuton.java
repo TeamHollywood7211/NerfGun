@@ -1,16 +1,20 @@
 package frc.robot.commands.Auton2022;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.DrivetrainCommand;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Solenoids;
+
 import static frc.robot.Constants.*;
 
 
 /** An example command that uses an example subsystem. */
-public class BackUpAuton extends CommandBase {
+public class BackUpBallAuton extends CommandBase {
 
   //private final Subsystem m_subsystem;
     private Timer time;
@@ -21,13 +25,13 @@ public class BackUpAuton extends CommandBase {
    * 
    */
 
-  public BackUpAuton(Drivetrain drivetrain) {
+  public BackUpBallAuton(Drivetrain drivetrain, Intake intake, Shooter shooter, Solenoids solenoids) {
     time = new Timer();
     //m_subsystem = subsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
 
-    addRequirements(drivetrain);
+    addRequirements(drivetrain, intake, shooter, solenoids);
 
   }
   @Override
@@ -38,17 +42,22 @@ public class BackUpAuton extends CommandBase {
   @Override
   public void execute() {
     time.start();
-      while(time.get()<2){
+      while(time.get()<3){
         Shooter.SetShootersSlow();
+        Solenoids.intakeSolenoid.set(Value.kForward);
+        Intake.intakeMotor.set(intakeMotorPower);
       }
-      while(time.get()<3 && time.get() > 2){
+      while(time.get()<5 && time.get() > 3){
         Conveyor.conveyorMotor.set(conveyorMotorPower);
       }
-      while(time.get()<5 && time.get()>3){
+      while(time.get()>5 && time.get()<8){
         Drivetrain.drivetrainMecanum.driveCartesian(0.3, 0, 0);
       }
-      while(time.get()>5 && time.get()<15){
+      while(time.get()>8 && time.get()<15){
         Drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);
+        Shooter.SetShootersZero();
+        Conveyor.conveyorMotor.set(0);
+        Intake.intakeMotor.set(0);
       }
   }
 

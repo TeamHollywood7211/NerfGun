@@ -25,7 +25,7 @@ public class Solenoids extends SubsystemBase {
   public Solenoids() {
     revPneumaticHub = new PneumaticHub();
     compressor = new Compressor(PneumaticsModuleType.REVPH);
-    intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 15, 13); //solenoid is triggered on autonomous initialization in Robot
+    intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 13, 15); //solenoid is triggered on autonomous initialization in Robot
   }
 
 

@@ -81,13 +81,13 @@ public static double horizontalAuto(){
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //if(RobotContainer.autoAimButton.get()){
+    if(RobotContainer.autoAimButton.get()){
             
-        //Drivetrain.drivetrainMecanum.driveCartesian(0, 0, horizontalAuto());
-    //}
-    //else{//drive carte first input is negative so we can change what direction push goes
+        Drivetrain.drivetrainMecanum.driveCartesian(0, 0, horizontalAuto());
+    }
+    else{//drive carte first input is negative so we can change what direction push goes
         Drivetrain.drivetrainMecanum.driveCartesian(-returnLeftAxis(1), returnLeftAxis(0), returnRightAxis(0));
-    //}
+    }
   }
 
   // Called once the command ends or is interrupted.

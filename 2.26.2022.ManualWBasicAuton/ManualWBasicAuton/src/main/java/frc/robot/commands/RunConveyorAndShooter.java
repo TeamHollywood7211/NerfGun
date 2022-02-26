@@ -34,7 +34,7 @@ public class RunConveyorAndShooter extends CommandBase {
   public void execute() {
     while(BreakBeams.ammo>0 && RobotContainer.shootTrigger()){ // Got bullets? Button mashed?
         Shooter.SetShootersNormal();
-        //while(Shooter.shooterLeftEncoder.getVelocity() <= targetShooterVelocity && Shooter.shooterRightEncoder.getVelocity() <= targetShooterVelocity){}//waits to do everything else until the motors reach a targeted rpm
+        while(Shooter.shooterLeftEncoder.getVelocity() <= targetShooterVelocity && Shooter.shooterRightEncoder.getVelocity() <= targetShooterVelocity){}//waits to do everything else until the motors reach a targeted rpm
         if(BreakBeams.ammo == 2){
           while(BreakBeams.TopBeamOutput() == true){ //while there is a ball at the top
           Conveyor.conveyorMotor.set(conveyorMotorPower); //run conveyor until there isnt
@@ -53,7 +53,6 @@ public class RunConveyorAndShooter extends CommandBase {
       }
     Shooter.SetShootersZero();
     Conveyor.conveyorMotor.set(0);//duh
-
   }
 
   // Called once the command ends or is interrupted.

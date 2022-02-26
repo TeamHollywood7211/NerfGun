@@ -39,12 +39,12 @@ public class Shooter extends SubsystemBase {
     //This method will set the shooter motors to normal speed
     public static void SetShootersNormal(){
       shooterRightMotor.set(shooterMotorPower);
-      shooterLeftMotor.set(shooterMotorPower+.045);
+      shooterLeftMotor.set(shooterMotorPower+.047);
     }
     //This method will set the shooter motors to slow speed
     public static void SetShootersSlow(){
       shooterRightMotor.set(shooterMotorPowerSlow);
-      shooterLeftMotor.set(shooterMotorPowerSlow+.03);
+      shooterLeftMotor.set(shooterMotorPowerSlow+.047);
     }
 
     @Override

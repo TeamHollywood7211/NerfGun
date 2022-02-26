@@ -9,7 +9,7 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.Auton2022.BackUpAuton;
-import frc.robot.commands.Auton2022.SimpleLinearAuton;
+import frc.robot.commands.Auton2022.SimpleAuton;
 import frc.robot.commands.DemoCommands.RunDoubleSolenoids;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -44,8 +44,8 @@ public class RobotContainer {
   //public static Turret m_turret = new Turret();
 
   //The robot's commands
-  public static SimpleLinearAuton m_simpleLinearAuton = new SimpleLinearAuton(m_drivetrain, m_intake, m_shooter, m_conveyor);
   public static BackUpAuton m_backUpAuton = new BackUpAuton(m_drivetrain);
+  public static SimpleAuton m_SimpleAuton = new SimpleAuton(m_drivetrain, m_intake, m_shooter, m_solenoids);
   //public static TurnTurret m_turnTurret;
 
   public final static Joystick leftJoystick = new Joystick(0);
@@ -94,8 +94,7 @@ public class RobotContainer {
   }
   
   public Command getAutonomousCommand(){
-    return m_backUpAuton;
-    
+    return m_SimpleAuton;
     //return null;
   }
 
