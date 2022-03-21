@@ -23,7 +23,7 @@ public class DrivetrainCommand extends CommandBase {
   @Override
   public void execute() {
     if(RobotContainer.calibrateButton.get()){
-        GyroAccelerometer.ahrs.reset();
+      GyroAccelerometer.ahrs.reset();
     }
 
     if(RobotContainer.autoAimButton.get()){
