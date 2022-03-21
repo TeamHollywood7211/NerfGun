@@ -1,4 +1,4 @@
-package frc.robot.commands.DemoCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
@@ -39,7 +39,6 @@ public class RunConveyor extends CommandBase {
         Conveyor.conveyorMotor.set(-conveyorMotorPower);
       } 
       else{Conveyor.conveyorMotor.set(0);}
-
   }
 
   // Called once the command ends or is interrupted.

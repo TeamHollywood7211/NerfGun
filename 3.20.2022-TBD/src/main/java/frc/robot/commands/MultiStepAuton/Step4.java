@@ -1,36 +1,28 @@
-//package frc.robot.ExampleFiles;
+package frc.robot.commands.MultiStepAuton;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
+public class Step4 extends CommandBase {
 
   //private final Subsystem m_subsystem;
 
-  /**
-   * Creates a new RunConveyor Command.
-   *
-   * @param subsystem The subsystem used by this command.
-   * 
-   */
-
-  public ExampleCommand(/*Subsystem subsystem*/) {
-
-    //m_subsystem = subsystem;
-
-    // Use addRequirements() here to declare subsystem dependencies.
-
-    addRequirements(/*subsystem*/);
+  public Step4(Shooter shooter, Conveyor conveyor, Drivetrain drivetrain) {
+    addRequirements(shooter, conveyor, drivetrain);
 
   }
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    Shooter.SetShootersZero();
+    Conveyor.conveyorMotor.set(0);
+    Drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);
   }
 
   // Called once the command ends or is interrupted.

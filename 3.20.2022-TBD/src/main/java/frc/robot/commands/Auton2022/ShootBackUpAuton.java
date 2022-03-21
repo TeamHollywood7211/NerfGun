@@ -2,15 +2,19 @@ package frc.robot.commands.Auton2022;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.DrivetrainCommand;
+import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
+
+import static frc.robot.Constants.*;
 
 
 /** An example command that uses an example subsystem. */
-public class BackUpAuton extends CommandBase {
+public class ShootBackUpAuton extends CommandBase {
 
   //private final Subsystem m_subsystem;
-    private Timer time;
+    public Timer time;
+
   /**
    * Creates a new RunConveyor Command.
    *
@@ -18,39 +22,54 @@ public class BackUpAuton extends CommandBase {
    * 
    */
 
-  public BackUpAuton(Drivetrain drivetrain) {
+  public ShootBackUpAuton(Drivetrain drivetrain, Shooter shooter) {
     time = new Timer();
     //m_subsystem = subsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
 
-    addRequirements(drivetrain);
+    addRequirements(drivetrain, shooter);
 
   }
   @Override
   public void initialize() {
-      time.start();
+    time.reset();    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      while(time.get()<1.5){
-          Drivetrain.drivetrainMecanum.driveCartesian(0.2, 0, 0);
-      }
-      Drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);
-      time.stop();
-      time.reset();
+    time.start();
+    while(time.get()<2){
+      Shooter.SetShootersSlow();
+    }
+    while(time.get()<3 && time.get() > 2){
+      Conveyor.conveyorMotor.set(conveyorMotorPower);
+    }
+    while(time.get()>3 && time.get()<4.2){
+      Conveyor.conveyorMotor.set(0);
+      Shooter.SetShootersZero();
+      Drivetrain.drivetrainMecanum.driveCartesian(0.50, 0, 0);
+    }
+    while(time.get()>4.2 && time.get()<15){
+        Drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);
+    }
+     
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    // time.stop();
+    // time.reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // time.stop();
+    // time.reset();
     return false;
   }
 }

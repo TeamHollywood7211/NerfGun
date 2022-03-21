@@ -6,18 +6,19 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.DemoCommands.RunClimbers;
-import frc.robot.commands.RunConveyorAndShooter;
+import frc.robot.commands.RunClimbers;
+import frc.robot.commands.RunConveyor;
 import frc.robot.commands.RunIntake;
-import frc.robot.commands.DemoCommands.RunConveyor;
+import frc.robot.commands.RunShooter;
 import frc.robot.commands.DemoCommands.RunDoubleSolenoids;
-import frc.robot.commands.DemoCommands.RunShooter;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Solenoids;
+import frc.robot.commands.TwoHighAuton.TwoHighAutonWIP;
+import frc.robot.subsystems.GyroAccelerometer;
+import frc.robot.subsystems.Limelights;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -27,12 +28,16 @@ import frc.robot.subsystems.Solenoids;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private Command m_runIntake = new RunIntake(RobotContainer.m_intake);
+  private Command m_runIntake = new RunIntake(RobotContainer.m_intake, RobotContainer.m_breakBeams);
+  private Command m_twoHighAutonWIP = new TwoHighAutonWIP(RobotContainer.m_drivetrain);
   private Command m_runShooter = new RunShooter(RobotContainer.m_shooter);
   private Command m_runConveyor = new RunConveyor(RobotContainer.m_conveyor);
   private Command m_runClimbers = new RunClimbers(RobotContainer.m_climbers);
-  private Command m_runconveyorandshooter = new RunConveyorAndShooter(RobotContainer.m_conveyor, RobotContainer.m_shooter);
+  private Command m_runDoubleSolenoids = new RunDoubleSolenoids(RobotContainer.m_solenoids);
   private RobotContainer m_robotContainer;
+  private String[] autonArray = {"TwoBallLow", "TwoBallHigh"};
+  private Command chosenAuton;
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -40,9 +45,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     UsbCamera frontCamera = CameraServer.startAutomaticCapture("frontCamera", 0);
     frontCamera.setResolution(320, 240);
+    GyroAccelerometer.ahrs.calibrate();
     m_robotContainer = new RobotContainer();
   }
 
@@ -55,6 +60,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putStringArray("Auto List", autonArray);
+    String autoName = SmartDashboard.getString("Auto Selector", "TwoBallLow");
+    switch(autoName) {
+      case "TwoBallLow":
+      chosenAuton = RobotContainer.m_SimpleAuton;
+      case "OneBallLow":
+      chosenAuton = RobotContainer.m_ShootBackUpAuton;
+      case "TwoBallLowHigh":
+      chosenAuton = RobotContainer.m_LowHighSequential;
+    }
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -69,48 +84,51 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledPeriodic() {
-    if(Solenoids.intakeSolenoid.get()==Value.kForward){
-      Solenoids.intakeSolenoid.set(Value.kReverse);
-    }
-  }
+  public void disabledPeriodic() {}
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    if(DriverStation.getAlliance().toString() == "Blue"){
+      Limelights.frontTable.getEntry("pipeline").setNumber(1);
+    } else{
+      Limelights.frontTable.getEntry("pipeline").setNumber(0);
+    }
+    Limelights.frontTable.getEntry("camMode").setNumber(0);
+    //m_robotContainer.getAutonomousCommand(); <put this after m_autonomousCommand = if you want it to go back to og
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    Solenoids.intakeSolenoid.set(Value.kForward);
+    System.out.print("autonomous is initialized");
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
+      System.out.print("autonomous command is scheduled.");
     }
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+  }
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    Solenoids.intakeSolenoid.set(Value.kForward);
-    m_runconveyorandshooter.schedule();
-    m_runIntake.schedule();
-    m_runConveyor.schedule();
-    m_runShooter.schedule();
-    m_runClimbers.schedule();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
+      System.out.print("Autonomous.cancel has run");
     }
+    Limelights.frontTable.getEntry("camMode").setNumber(1);
+    Limelights.frontTable.getEntry("pipeline").setNumber(2);
+    m_runIntake.schedule();
+    m_runShooter.schedule();
+    m_runDoubleSolenoids.schedule();
+    m_runClimbers.schedule();
+    m_runConveyor.schedule();
+    System.out.print("all commands are scheduled.");
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-
   }
 
   @Override

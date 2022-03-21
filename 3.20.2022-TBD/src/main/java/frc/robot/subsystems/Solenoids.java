@@ -18,14 +18,14 @@ public class Solenoids extends SubsystemBase {
   public static PneumaticHub revPneumaticHub;
   public static Compressor compressor;
   public static DoubleSolenoid intakeSolenoid;
-  public static DoubleSolenoid ClimberSolenoidL2;
-  public static DoubleSolenoid climberSolenoidR2;
+  public static DoubleSolenoid climberSolenoid2;
 
   // Creates a new Subsystem.
   public Solenoids() {
     revPneumaticHub = new PneumaticHub();
     compressor = new Compressor(PneumaticsModuleType.REVPH);
-    intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 15, 13); //solenoid is triggered on autonomous initialization in Robot
+    intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 13, 15); //solenoid is triggered on autonomous initialization in Robot
+    climberSolenoid2 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2, 0);
   }
 
 

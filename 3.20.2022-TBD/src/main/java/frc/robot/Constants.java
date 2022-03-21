@@ -18,30 +18,30 @@ public final class Constants {
     public static int frontRight1ID = 20;
     public static int backLeft1ID = 15;
     public static int backRight1ID = 25;
-    public static double powerRegulator = .95;
+    public static double powerRegulator = 1;
     public static double deadzone = .13; //originally .20
 //=============================Intake Constants==========================================//
     public static int intakeMotorID = 30;
-    public static double intakeMotorPower = 0.40;
+    public static double intakeMotorPower = 0.70;
 //=============================Conveyor Constants========================================//
     public static int conveyorMotorID = 35;
-    public static double conveyorMotorPower = 0.70;
+    public static double conveyorMotorPower = .8;
 //=============================Shooter Constants=========================================//
     public static int shooterLeftMotorID = 40;
     public static int shooterRightMotorID = 41;
-    public static double shooterMotorPower = 0.25;
-    public static int targetShooterVelocity = 2500;
-    public static double shooterMotorPowerSlow = .13;
-    public static int targetShooterVelocitySlow = 500;
+    public static double shooterMotorPowerHigh = 0.21;
+    public static int targetShooterVelocityHigh = 730;
+    public static double shooterMotorPowerSlow = .125;
+    public static int targetShooterVelocitySlow = 380;
 //=============================BreakBeam Constants=======================================//
     public static int TopBeamID = 2; 
     public static int MiddleBeamID = 1; 
     public static int HopperBeamID = 0;
 //=============================Climber Constants=========================================//
     public static int ClimberL1ID = 50;
-    //public static int ClimberL2ID = 52;
+    public static int ClimberL2ID = 52;
     public static int ClimberR1ID = 51;
-    //public static int ClimberR2ID = 53;
+    public static int ClimberR2ID = 53;
     public static double climberSpeedStage1 = 1;
-    public static double climberDesiredPosition = 200;
+    public static double climberSpeedStage2 = 1;
 }

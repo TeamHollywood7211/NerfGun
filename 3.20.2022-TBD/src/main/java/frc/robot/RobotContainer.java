@@ -7,19 +7,19 @@
 
 package frc.robot;
 
-import frc.robot.commands.*;
-import frc.robot.commands.Auton2022.BackUpAuton;
-import frc.robot.commands.Auton2022.SimpleLinearAuton;
-import frc.robot.commands.DemoCommands.RunDoubleSolenoids;
+import frc.robot.commands.Auton2022.ShootBackUpAuton;
+import frc.robot.commands.Auton2022.SimpleAuton;
+import frc.robot.commands.MultiStepAuton.LowHighSequential;
+import frc.robot.commands.TwoHighAuton.ProductionTwoHigh;
 import frc.robot.subsystems.*;
+
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 
 
@@ -42,31 +42,52 @@ public class RobotContainer {
   public final static Drivetrain m_drivetrain = new Drivetrain();
   public final static Solenoids m_solenoids = new Solenoids();
 
-  //public static Turret m_turret = new Turret();
-
   //The robot's commands
-  public static SimpleLinearAuton m_simpleLinearAuton = new SimpleLinearAuton(m_drivetrain, m_intake, m_shooter, m_conveyor);
-  public static BackUpAuton m_backUpAuton = new BackUpAuton(m_drivetrain);
-  //public static TurnTurret m_turnTurret;
+  public static SimpleAuton m_SimpleAuton = new SimpleAuton(m_drivetrain, m_intake, m_solenoids, m_shooter);
+  public static ShootBackUpAuton m_ShootBackUpAuton = new ShootBackUpAuton(m_drivetrain, m_shooter);
+  public static LowHighSequential m_LowHighSequential = new LowHighSequential(m_intake, m_drivetrain, m_conveyor, m_solenoids, m_shooter);
+  public static ProductionTwoHigh m_ProductionTwoHigh = new ProductionTwoHigh(m_drivetrain, m_intake, m_solenoids, m_shooter);
 
   public final static Joystick leftJoystick = new Joystick(0);
-  public final static JoystickButton autoAimButton = new JoystickButton(leftJoystick, 1);//this is the trigger
-
+  public final static JoystickButton calibrateButton = new JoystickButton(leftJoystick, 11);
+  public final static JoystickButton climbUp2Button = new JoystickButton(leftJoystick, 8);
+  public final static JoystickButton climbDown2Button = new JoystickButton(leftJoystick, 10);
+  
   public final static Joystick rightJoystick = new Joystick(1); 
+  public final static JoystickButton solenoidClimbButton = new JoystickButton(rightJoystick, 8);
+  public final static JoystickButton stageOneForceUp = new JoystickButton(rightJoystick, 6);
+  public final static JoystickButton stageOneForceDown = new JoystickButton(rightJoystick, 4);
+  public final static JoystickButton autoAimButton = new JoystickButton(rightJoystick, 1);//this is the trigger
 
   public final static XboxController operatorJoystick = new XboxController(2);
   public final static POVButton conveyorUpButton = new POVButton(operatorJoystick, 0);//up on dpad
   public final static POVButton conveyorDownButton = new POVButton(operatorJoystick, 180);//down on dpad
-  //public final static Trigger solenoidInOutButton = new JoystickButton(operatorJoystick, 3).whenActive(new RunDoubleSolenoids(m_solenoids));//left on dpad
+  public final static JoystickButton climbUp1Button = new JoystickButton(operatorJoystick, 4);//y button
+  public final static JoystickButton climbDown1Button = new JoystickButton(operatorJoystick, 1);//a button
+  public final static JoystickButton solenoidIntakeButton = new JoystickButton(operatorJoystick, 3);
+  public final static JoystickButton solenoidClimbButtonOp = new JoystickButton(operatorJoystick, 5);
   public final static JoystickButton intakeButton = new JoystickButton(operatorJoystick, 2);//b button on xbox controller
-  public final static JoystickButton climbUpButton = new JoystickButton(operatorJoystick, 4);//y button
-  public final static JoystickButton climbDownButton = new JoystickButton(operatorJoystick, 1);//a button
-  public final static JoystickButton shootNormalTrigger = new JoystickButton(operatorJoystick, 6);//right bumper
+  public final static JoystickButton shootHighTrigger = new JoystickButton(operatorJoystick, 6);//right bumper
   
-  public final static XboxController driverController = new XboxController(3);
+  //public final static XboxController driverController = new XboxController(3);
   //public final static Joystick driverLeftJoystick = driverController.getRawAxis();
+  public static boolean climbDown2ButtonOperator(){
+    if(operatorJoystick.getRawAxis(1)>.5){
+      return true;
+    } else{
+      return false;
+    }
+  }
 
-  public static boolean shootTrigger(){
+  public static boolean climbUp2ButtonOperator(){
+    if(operatorJoystick.getRawAxis(1)<-.5){
+      return true;
+    } else{
+      return false;
+    }
+  }
+
+  public static boolean shootSlowTrigger(){
     if(operatorJoystick.getRawAxis(3)> 0.1){
       return true;
     } else{
@@ -74,6 +95,13 @@ public class RobotContainer {
     }
   }
 
+  public static boolean shootSafeWall(){
+    if(operatorJoystick.getRawAxis(2)>0.1){
+      return true;
+    } else{
+      return false;
+    }
+  }
   
   // @Override
   public void teleopPeriodic() {
@@ -91,11 +119,11 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    GyroAccelerometer.ahrs.calibrate();
+    //GyroAccelerometer.ahrs.calibrate();
   }
   
   public Command getAutonomousCommand(){
-    return m_backUpAuton;
+    return m_ProductionTwoHigh;
     //return null;
   }
 

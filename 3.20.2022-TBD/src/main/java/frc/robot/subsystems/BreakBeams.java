@@ -56,5 +56,8 @@ public class BreakBeams extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Ammo", ammo);
+    SmartDashboard.putBoolean("Hopper", HopperBeamOutput());
+    SmartDashboard.putBoolean("Middle", MiddleBeamOutput());
+    SmartDashboard.putBoolean("Top", TopBeamOutput());
   }
 }

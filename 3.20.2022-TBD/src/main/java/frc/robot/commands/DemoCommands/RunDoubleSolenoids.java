@@ -1,9 +1,9 @@
 package frc.robot.commands.DemoCommands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Solenoids;
 
 
@@ -11,7 +11,10 @@ import frc.robot.subsystems.Solenoids;
 public class RunDoubleSolenoids extends CommandBase {
 
   //private final Subsystem m_subsystem;
-
+  boolean toggleIntake = true;
+  boolean solenoidStateIntake = false;
+  boolean toggleClimb = true;
+  boolean solenoidStateClimb = false;
 
   /**
    * Creates a new RunConveyor Command.
@@ -34,16 +37,34 @@ public class RunDoubleSolenoids extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //if(RobotContainer.solenoidInOutButton.get()){
-      if(Solenoids.intakeSolenoid.get() == Value.kOff){
-        Solenoids.intakeSolenoid.set(Value.kForward);
-      } else if(Solenoids.intakeSolenoid.get() == Value.kReverse){
-        Solenoids.intakeSolenoid.set(Value.kForward);
-      } else if(Solenoids.intakeSolenoid.get()== Value.kForward){
-        Solenoids.intakeSolenoid.set(Value.kReverse);
-      }
-    //}
+  SmartDashboard.putBoolean("intakebuttonpressed", RobotContainer.solenoidIntakeButton.get());
+  if(toggleIntake && RobotContainer.solenoidIntakeButton.get()){
+    toggleIntake = false;
+    if(solenoidStateIntake){
+      solenoidStateIntake = false;
+      Solenoids.intakeSolenoid.set(Value.kReverse);
+    } else{
+      solenoidStateIntake = true;
+      Solenoids.intakeSolenoid.set(Value.kForward);
+    }
+  } else if(RobotContainer.solenoidIntakeButton.get() == false){
+    toggleIntake = true;
   }
+
+  SmartDashboard.putBoolean("climbsolenoid", (RobotContainer.solenoidClimbButton.get() || RobotContainer.solenoidClimbButtonOp.get()));
+    if(toggleClimb && (RobotContainer.solenoidClimbButton.get() || RobotContainer.solenoidClimbButtonOp.get())){
+        toggleClimb = false;
+        if(solenoidStateClimb){
+          solenoidStateClimb = false;
+          Solenoids.climberSolenoid2.set(Value.kReverse);
+        } else{
+          solenoidStateClimb = true;
+          Solenoids.climberSolenoid2.set(Value.kForward);
+        }
+      } else if(RobotContainer.solenoidClimbButton.get() == false && RobotContainer.solenoidClimbButtonOp.get() == false){
+        toggleClimb = true;
+      }
+ }
 
   // Called once the command ends or is interrupted.
   @Override

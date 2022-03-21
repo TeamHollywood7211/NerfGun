@@ -21,6 +21,9 @@ public class Conveyor extends SubsystemBase {
 
   public void periodic() {
     // This method will be called once per scheduler run
+  }
 
+  public void setPower(double power){
+    conveyorMotor.set(power);
   }
 }
