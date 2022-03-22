@@ -47,7 +47,7 @@ public class DrivetrainCommand extends CommandBase {
   public boolean isFinished() {
     return false;
   }
-public static double returnLeftAxis(int leftAxis){
+  public static double returnLeftAxis(int leftAxis){
     double leftStick = RobotContainer.leftJoystick.getRawAxis(leftAxis);
         
     if(leftStick > deadzone || leftStick < -deadzone){
@@ -65,6 +65,5 @@ public static double returnRightAxis(int rightAxis){
    else{
         return 0;
    }
-  
 }
 }
