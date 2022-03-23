@@ -49,14 +49,12 @@ public class RobotContainer {
   public static ProductionTwoHigh m_ProductionTwoHigh = new ProductionTwoHigh(m_drivetrain, m_intake, m_solenoids, m_shooter);
 
   public final static Joystick leftJoystick = new Joystick(0);
-  public final static JoystickButton calibrateButton = new JoystickButton(leftJoystick, 11);
-  public final static JoystickButton climbUp2Button = new JoystickButton(leftJoystick, 8);
-  public final static JoystickButton climbDown2Button = new JoystickButton(leftJoystick, 10);
+  public final static JoystickButton calibrateButton = new JoystickButton(leftJoystick, 16);
+  public final static JoystickButton climbUp2Button = new JoystickButton(leftJoystick, 13);
+  public final static JoystickButton climbDown2Button = new JoystickButton(leftJoystick, 14);
   
   public final static Joystick rightJoystick = new Joystick(1); 
   public final static JoystickButton solenoidClimbButton = new JoystickButton(rightJoystick, 8);
-  public final static JoystickButton stageOneForceUp = new JoystickButton(rightJoystick, 6);
-  public final static JoystickButton stageOneForceDown = new JoystickButton(rightJoystick, 4);
   public final static JoystickButton autoAimButton = new JoystickButton(rightJoystick, 1);//this is the trigger
 
   public final static XboxController operatorJoystick = new XboxController(2);
