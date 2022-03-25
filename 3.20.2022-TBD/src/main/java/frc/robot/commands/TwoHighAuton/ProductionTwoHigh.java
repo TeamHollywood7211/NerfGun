@@ -70,7 +70,6 @@ public class ProductionTwoHigh extends CommandBase {
           }
         }
         Conveyor.conveyorMotor.set(0);//duh
-        Intake.intakeMotor.set(0);
       }
     } 
     if(time.get() > 5 && time.get() < 7){
@@ -81,6 +80,7 @@ public class ProductionTwoHigh extends CommandBase {
     if(time.get() > 7 && time.get() < 8){
       Drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);
       Shooter.SetShootersPID(autonTargetVelocity);
+      Intake.intakeMotor.set(0);
     }
     if(time.get() > 8 && time.get() < 10){
       Shooter.SetShootersPID(autonTargetVelocity);

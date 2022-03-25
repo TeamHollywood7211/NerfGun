@@ -17,6 +17,8 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -47,6 +49,8 @@ public class RobotContainer {
   public static ShootBackUpAuton m_ShootBackUpAuton = new ShootBackUpAuton(m_drivetrain, m_shooter);
   public static LowHighSequential m_LowHighSequential = new LowHighSequential(m_intake, m_drivetrain, m_conveyor, m_solenoids, m_shooter);
   public static ProductionTwoHigh m_ProductionTwoHigh = new ProductionTwoHigh(m_drivetrain, m_intake, m_solenoids, m_shooter);
+
+  public SendableChooser<Command> autonChooser = new SendableChooser<>();
 
   public final static Joystick leftJoystick = new Joystick(0);
   public final static JoystickButton calibrateButton = new JoystickButton(leftJoystick, 16);
@@ -115,14 +119,20 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    autonChooser.setDefaultOption("ShootTwoHigh", m_ProductionTwoHigh);
+    autonChooser.addOption("ShootTwoLow", m_SimpleAuton);
+    autonChooser.addOption("OneLow", m_ShootBackUpAuton);
+    autonChooser.addOption("OneLowOneHigh", m_LowHighSequential);
+    SmartDashboard.putData(autonChooser);
+
     // Configure the button bindings
     configureButtonBindings();
     //GyroAccelerometer.ahrs.calibrate();
   }
   
   public Command getAutonomousCommand(){
-    return m_ProductionTwoHigh;
-    //return null;
+    //return m_ProductionTwoHigh;
+    return autonChooser.getSelected();
   }
 
   /**
