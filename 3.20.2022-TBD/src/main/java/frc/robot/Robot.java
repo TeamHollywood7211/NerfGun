@@ -8,6 +8,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -35,8 +36,7 @@ public class Robot extends TimedRobot {
   private Command m_runClimbers = new RunClimbers(RobotContainer.m_climbers);
   private Command m_runDoubleSolenoids = new RunDoubleSolenoids(RobotContainer.m_solenoids);
   private RobotContainer m_robotContainer;
-  private String[] autonArray = {"TwoBallLow", "TwoBallHigh"};
-  private Command chosenAuton;
+  
   
 
   /**
@@ -60,16 +60,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putStringArray("Auto List", autonArray);
-    String autoName = SmartDashboard.getString("Auto Selector", "TwoBallLow");
-    switch(autoName) {
-      case "TwoBallLow":
-      chosenAuton = RobotContainer.m_SimpleAuton;
-      case "OneBallLow":
-      chosenAuton = RobotContainer.m_ShootBackUpAuton;
-      case "TwoBallLowHigh":
-      chosenAuton = RobotContainer.m_LowHighSequential;
-    }
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

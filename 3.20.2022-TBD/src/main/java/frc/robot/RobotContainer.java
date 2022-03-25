@@ -54,7 +54,7 @@ public class RobotContainer {
   public final static JoystickButton climbDown2Button = new JoystickButton(leftJoystick, 14);
   
   public final static Joystick rightJoystick = new Joystick(1); 
-  public final static JoystickButton solenoidClimbButton = new JoystickButton(rightJoystick, 8);
+  public final static JoystickButton solenoidClimbButton = new JoystickButton(rightJoystick, 14);
   public final static JoystickButton autoAimButton = new JoystickButton(rightJoystick, 1);//this is the trigger
 
   public final static XboxController operatorJoystick = new XboxController(2);
