@@ -8,7 +8,6 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DrivetrainCommand;
@@ -28,16 +27,13 @@ import frc.robot.commands.TwoHighAuton.TwoHighAutonWIP;
 public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private Command m_autonomousCommand;
-  private Command m_drivetrainCommand = new DrivetrainCommand(m_robotContainer.m_drivetrain, m_robotContainer.m_gyroAccel, m_robotContainer.m_limelights);
-  private Command m_runIntake = new RunIntake(m_robotContainer.m_intake, m_robotContainer.m_breakBeams);
-  private Command m_twoHighAutonWIP = new TwoHighAutonWIP(m_robotContainer.m_drivetrain);
-  private Command m_runShooter = new RunShooter(m_robotContainer.m_shooter);
-  private Command m_runConveyor = new RunConveyor(m_robotContainer.m_conveyor);
-  private Command m_runClimbers = new RunClimbers(m_robotContainer.m_climbers);
-  private Command m_runDoubleSolenoids = new RunDoubleSolenoids(m_robotContainer.m_solenoids);
-  private String[] autonArray = {"TwoBallLow", "OneBallLow", "TwoBallLowHigh"};
-  private Command chosenAuton;
-  
+  private Command m_drivetrainCommand;
+  private Command m_runIntake;
+  private Command m_twoHighAutonWIP;
+  private Command m_runShooter;
+  private Command m_runConveyor;
+  private Command m_runClimbers;
+  private Command m_runDoubleSolenoids;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -47,8 +43,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     UsbCamera frontCamera = CameraServer.startAutomaticCapture("frontCamera", 0);
     frontCamera.setResolution(320, 240);
-    m_robotContainer.m_gyroAccel.ahrs.calibrate();
     m_robotContainer = new RobotContainer();
+    m_drivetrainCommand = new DrivetrainCommand(m_robotContainer.m_drivetrain, m_robotContainer.m_gyroAccel, m_robotContainer.m_limelights);
+    m_runIntake = new RunIntake(m_robotContainer.m_intake, m_robotContainer.m_breakBeams);
+    m_twoHighAutonWIP = new TwoHighAutonWIP(m_robotContainer.m_drivetrain);
+    m_runShooter = new RunShooter(m_robotContainer.m_shooter);
+    m_runConveyor = new RunConveyor(m_robotContainer.m_conveyor);
+    m_runClimbers = new RunClimbers(m_robotContainer.m_climbers);
+    m_runDoubleSolenoids = new RunDoubleSolenoids(m_robotContainer.m_solenoids);
   }
 
   /**
@@ -60,16 +62,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putStringArray("Auto List", autonArray);
-    String autoName = SmartDashboard.getString("Auto Selector", "TwoBallLow");
-    switch(autoName) {
-      case "TwoBallLow":
-      chosenAuton = m_robotContainer.m_SimpleAuton;
-      case "OneBallLow":
-      chosenAuton = m_robotContainer.m_ShootBackUpAuton;
-      case "TwoBallLowHigh":
-      chosenAuton = m_robotContainer.m_LowHighSequential;
-    }
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -95,8 +87,7 @@ public class Robot extends TimedRobot {
       m_robotContainer.m_limelights.frontTable.getEntry("pipeline").setNumber(0);
     }
     m_robotContainer.m_limelights.frontTable.getEntry("camMode").setNumber(0);
-    //m_robotContainer.getAutonomousCommand(); <put this after m_autonomousCommand = if you want it to go back to og
-    m_autonomousCommand = chosenAuton;
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     System.out.print("autonomous is initialized");
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

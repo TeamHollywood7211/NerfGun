@@ -1,5 +1,6 @@
 package frc.robot.commands.TwoHighAuton;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -53,7 +54,11 @@ public class ProductionTwoHigh extends CommandBase {
       Solenoids.intakeSolenoid.set(Value.kForward);
     }
     if(time.get()>1 && time.get()<2.2){
+      if(DriverStation.getAlliance().toString() == "Blue"){
+        Drivetrain.drivetrainMecanum.driveCartesian(0.48, 0, 0);
+      } else{
       Drivetrain.drivetrainMecanum.driveCartesian(0.48, 0, Limelights.horizontalAutoFront());
+      }
       Intake.intakeMotor.set(intakeMotorPower);
     }
     if(time.get()>2.2 && time.get()<5){

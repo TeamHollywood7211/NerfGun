@@ -32,7 +32,7 @@ public class Limelights extends SubsystemBase {
   }
 
   public static double horizontalAutoBack(){
-    double Kp = 0.023;//.0225 og set // Proportional control constant
+    double Kp = 0.0225;//.0225 og set // Proportional control constant
     double x = backtx.getDouble(0.0); //this is the error from target horizontally, default value is in the parenthesis
     double v = backtv.getDouble(0); // this is whether or not there is a target seen.
     double chassisAdjust = 0;

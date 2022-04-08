@@ -125,13 +125,13 @@ public class RobotContainer {
     autonChooser.addOption("OneLowOneHigh", m_LowHighSequential);
     SmartDashboard.putData(autonChooser);
 
-    // Configure the button bindings
+    //Configure the button bindings
     configureButtonBindings();
     //GyroAccelerometer.ahrs.calibrate();
   }
   
   public Command getAutonomousCommand(){
-    //return m_ProductionTwoHigh;
+    //return m_ProductionTwoHigh; <set back to this to go to default config
     return autonChooser.getSelected();
   }
 

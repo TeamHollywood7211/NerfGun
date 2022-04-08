@@ -19,7 +19,7 @@ public final class Constants {
     public static int backLeft1ID = 15;
     public static int backRight1ID = 25;
     public static double powerRegulator = 1;
-    public static double deadzone = .13; //originally .20
+    public static double deadzone = .1; //originally .20
 //=============================Intake Constants==========================================//
     public static int intakeMotorID = 30;
     public static double intakeMotorPower = 0.70;

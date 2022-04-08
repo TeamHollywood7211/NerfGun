@@ -37,7 +37,7 @@ public class RunShooter extends CommandBase {
     } else if(RobotContainer.shootHighTrigger.get()){
       Shooter.SetShootersPID(targetShooterVelocityHigh);
     } else if(RobotContainer.shootSafeWall()){
-      Shooter.SetShootersPID(800);
+      Shooter.SetShootersPID(900);
     } else{
       Shooter.SetShootersZero();
       Shooter.shooterLeftPID.reset();
