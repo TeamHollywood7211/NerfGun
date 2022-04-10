@@ -11,7 +11,6 @@ import frc.robot.commands.Auton2022.TwoHighAuton;
 import frc.robot.commands.Auton2022.OneLowAuton;
 import frc.robot.commands.Auton2022.TwoLowAuton;
 import frc.robot.commands.Auton2022.FourHighAutonComGroup.FourHighParallelGroup;
-import frc.robot.commands.Auton2022.FourHighAutonComGroup.FourStep3;
 import frc.robot.commands.Auton2022.OneLowOneHighComGroup.OneLowOneHighAuton;
 import frc.robot.subsystems.BreakBeams;
 import frc.robot.subsystems.Climbers;
@@ -55,22 +54,22 @@ public class RobotContainer {
   public final Limelights m_limelights = new Limelights();
 
   //The robot's commands
-  // private FourStep3 m_testing = new FourStep3(m_drivetrain, m_gyroAccel);
+  // private FourStep4 m_testing = new FourStep4(m_drivetrain, m_breakBeams, m_conveyor);
   private TwoLowAuton m_twoLowAuton = new TwoLowAuton(m_drivetrain, m_intake, m_solenoids, m_shooter, m_conveyor, m_breakBeams);
   private OneLowAuton m_oneLowAuton = new OneLowAuton(m_drivetrain, m_shooter, m_conveyor);
   private OneLowOneHighAuton m_oneLowOneHighAuton = new OneLowOneHighAuton(m_intake, m_drivetrain, m_conveyor, m_solenoids, m_shooter, m_breakBeams, m_limelights);
   private TwoHighAuton m_twoHighAuton = new TwoHighAuton(m_drivetrain, m_intake, m_solenoids, m_shooter, m_limelights, m_conveyor, m_breakBeams);
-  public FourHighParallelGroup m_fourHighAuton = new FourHighParallelGroup(m_conveyor, m_drivetrain, m_intake, m_limelights, m_shooter, m_solenoids, m_gyroAccel);
+  public FourHighParallelGroup m_fourHighAuton = new FourHighParallelGroup(m_conveyor, m_drivetrain, m_intake, m_limelights, m_shooter, m_solenoids, m_gyroAccel, m_breakBeams);
 
   public SendableChooser<Command> autonChooser = new SendableChooser<>();
 
   public static final Joystick leftJoystick = new Joystick(0);
   public static final JoystickButton calibrateButton = new JoystickButton(leftJoystick, 16);
-  public static final JoystickButton climbUp2Button = new JoystickButton(leftJoystick, 8);
-  public static final JoystickButton climbDown2Button = new JoystickButton(leftJoystick, 10);
+  public static final JoystickButton climbUp2Button = new JoystickButton(leftJoystick, 13);
+  public static final JoystickButton climbDown2Button = new JoystickButton(leftJoystick, 14);
   
   public static final Joystick rightJoystick = new Joystick(1); 
-  public static final JoystickButton solenoidClimbButton = new JoystickButton(rightJoystick, 8);
+  public static final JoystickButton solenoidClimbButton = new JoystickButton(rightJoystick, 14);
   public static final JoystickButton stageOneForceUp = new JoystickButton(rightJoystick, 6);
   public static final JoystickButton stageOneForceDown = new JoystickButton(rightJoystick, 4);
   public static final JoystickButton autoAimButton = new JoystickButton(rightJoystick, 1);//this is the trigger
@@ -135,7 +134,7 @@ public class RobotContainer {
         return rightStick * powerRegulator;
    }
    else{
-        return 0;
+    return 0;
    }
   }
   

@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -7,20 +8,39 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Limelights extends SubsystemBase {
-  public NetworkTable frontTable = NetworkTableInstance.getDefault().getTable("limelight-front");
-  public NetworkTableEntry frontta = frontTable.getEntry("ta");;
-  public NetworkTableEntry fronttx = frontTable.getEntry("tx");;
-  public NetworkTableEntry frontty = frontTable.getEntry("ty");;
-  public NetworkTableEntry fronttv = frontTable.getEntry("tv");;
+  public NetworkTable frontTable;
+  public NetworkTableEntry frontta;
+  public NetworkTableEntry fronttx;
+  public NetworkTableEntry frontty;
+  public NetworkTableEntry fronttv;
 
-  public NetworkTable backTable = NetworkTableInstance.getDefault().getTable("limelight-back");
-  public NetworkTableEntry ledMode = backTable.getEntry("ledMode");
-  public NetworkTableEntry backta = backTable.getEntry("ta");
-  public NetworkTableEntry backtx = backTable.getEntry("tx");
-  public NetworkTableEntry backty = backTable.getEntry("ty");
-  public NetworkTableEntry backtv = backTable.getEntry("tv");
+  public NetworkTable backTable;
+  public NetworkTableEntry ledMode;
+  public NetworkTableEntry backta;
+  public NetworkTableEntry backtx;
+  public NetworkTableEntry backty;
+  public NetworkTableEntry backtv;
+
+  private PIDController backController;
+  double backP = 0.02;
+  double backI = 0;
+  double backD = 0;
+
 
   public Limelights() {
+    backController = new PIDController(backP, backI, backD);
+    frontTable = NetworkTableInstance.getDefault().getTable("limelight-front");
+    frontta = frontTable.getEntry("ta");;
+    fronttx = frontTable.getEntry("tx");;
+    frontty = frontTable.getEntry("ty");;
+    fronttv = frontTable.getEntry("tv");;
+  
+    backTable = NetworkTableInstance.getDefault().getTable("limelight-back");
+    ledMode = backTable.getEntry("ledMode");
+    backta = backTable.getEntry("ta");
+    backtx = backTable.getEntry("tx");
+    backty = backTable.getEntry("ty");
+    backtv = backTable.getEntry("tv");
   }
 
 

@@ -1,36 +1,33 @@
 package frc.robot.commands.Auton2022.FourHighAutonComGroup;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelights;
-import static frc.robot.Constants.*;
-
 
 /** An example command that uses an example subsystem. */
 public class FourStep5 extends CommandBase {
     private final Drivetrain m_drivetrain;
     private final Limelights m_limelights;
-    private final Intake m_intake;
     private final Conveyor m_conveyor;
-    private Timer time;
 
-    public FourStep5(Drivetrain drivetrain, Limelights limelights, Intake intake, Conveyor conveyor) {
-        m_drivetrain = drivetrain;
-        m_limelights = limelights;
-        m_intake = intake;
+    public FourStep5(Drivetrain drivetrain, Limelights limelights, Conveyor conveyor) {
         m_conveyor = conveyor;
-        time = new Timer();
+        m_limelights = limelights;
+        m_drivetrain = drivetrain;
         addRequirements(drivetrain);
     }
     @Override
-    public void initialize() {}
+    public void initialize() {
+        m_drivetrain.resetDrivetrainEncoders();
+    }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+
+        m_limelights.backTable.getEntry("ledMode").setNumber(3);
+        m_drivetrain.setPositionDrivetrain(-75);
     }
 
     // Called once the command ends or is interrupted.
@@ -40,7 +37,7 @@ public class FourStep5 extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-    if(m_drivetrain.getFrontMotorPositions()>24){
+    if(m_drivetrain.getFrontMotorPositions()<-73){
         return true;
     }
     return false;

@@ -25,7 +25,7 @@ public class Shooter extends SubsystemBase {
     
     //pid constants
     double kP = 0.0018;
-    double kI = 0.00074;
+    double kI = 0.00076;
     double kD = 0.00025;
     
     shooterLeftMotor = new CANSparkMax(shooterLeftMotorID, MotorType.kBrushless);

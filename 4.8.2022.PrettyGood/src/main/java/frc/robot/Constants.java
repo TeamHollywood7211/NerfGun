@@ -18,7 +18,7 @@ public final class Constants {
     public static int frontRight1ID = 20;
     public static int backLeft1ID = 15;
     public static int backRight1ID = 25;
-    public static double powerRegulator = 2;
+    public static double powerRegulator = 1;
     public static double deadzone = 0.02; //originally .13
 //=============================Intake Constants==========================================//
     public static int intakeMotorID = 30;
@@ -32,7 +32,7 @@ public final class Constants {
     public static double shooterMotorPowerHigh = 0.21;
     public static int targetShooterVelocityHigh = 730;
     public static double shooterMotorPowerSlow = .125;
-    public static int targetShooterVelocitySlow = 380;
+    public static int targetShooterVelocitySlow = 350;
 //=============================BreakBeam Constants=======================================//
     public static int TopBeamID = 2; 
     public static int MiddleBeamID = 1; 
