@@ -1,4 +1,4 @@
-package frc.robot.commands.MultiStepAuton;
+package frc.robot.commands.Auton2022.OneLowOneHighComGroup;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -46,7 +46,7 @@ public void execute() {
     time.start();
     if(time.get() < 1.2){
         m_drivetrain.drivetrainMecanum.driveCartesian(0.50, 0, m_limelights.horizontalAutoFront());
-        m_intake.intakeMotor.set(IntakeConstants.intakeMotorPower);
+        m_intake.intakeMotor.set(intakeMotorPower);
     }
     if(time.get() > 1.2 && time.get() < 3){
         m_drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);

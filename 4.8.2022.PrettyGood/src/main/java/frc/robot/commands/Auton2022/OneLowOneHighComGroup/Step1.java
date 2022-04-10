@@ -1,29 +1,31 @@
-package frc.robot.commands.Auton2022;
+package frc.robot.commands.Auton2022.OneLowOneHighComGroup;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Solenoids;
 
 import static frc.robot.Constants.*;
 
 
 /** An example command that uses an example subsystem. */
-public class ShootBackUpAuton extends CommandBase {
+public class Step1 extends CommandBase {
 
-  public Timer time;
-  Drivetrain m_drivetrain;
+  private Timer time;
   Shooter m_shooter;
   Conveyor m_conveyor;
+  Solenoids m_solenoids;
 
-  public ShootBackUpAuton(Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
+  public Step1(Shooter shooter, Conveyor conveyor, Solenoids solenoids) {
     time = new Timer();
-    m_drivetrain = drivetrain;
+
     m_shooter = shooter;
     m_conveyor = conveyor;
+    m_solenoids = solenoids;
 
-    addRequirements(drivetrain, shooter, conveyor);
+    addRequirements(shooter, conveyor, solenoids);
 
   }
   @Override
@@ -34,37 +36,33 @@ public class ShootBackUpAuton extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.print("step1");
     time.start();
-    while(time.get()<2){
+    if(time.get() < 2){
       m_shooter.SetShootersSlow();
+      m_solenoids.intakeSolenoid.set(Value.kForward);
     }
-    while(time.get()<3 && time.get() > 2){
+    if(time.get() > 2 && time.get() < 3){
       m_conveyor.conveyorMotor.set(conveyorMotorPower);
     }
-    while(time.get()>3 && time.get()<4.2){
-      m_conveyor.conveyorMotor.set(0);
+    if(time.get() > 3 && time.get() < 3.2){
       m_shooter.SetShootersZero();
-      m_drivetrain.drivetrainMecanum.driveCartesian(0.50, 0, 0);
+      m_conveyor.conveyorMotor.set(0);
     }
-    while(time.get()>4.2 && time.get()<15){
-      m_drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);
-    }
-     
-    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // time.stop();
-    // time.reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // time.stop();
-    // time.reset();
+    if(time.get()>3.2){
+      return true;
+    } else{
     return false;
+    }
   }
 }

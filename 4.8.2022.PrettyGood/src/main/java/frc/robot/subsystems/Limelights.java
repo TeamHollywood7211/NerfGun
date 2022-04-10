@@ -7,18 +7,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Limelights extends SubsystemBase {
-    public NetworkTable frontTable = NetworkTableInstance.getDefault().getTable("limelight-front");
-    public NetworkTableEntry frontta = frontTable.getEntry("ta");;
-    public NetworkTableEntry fronttx = frontTable.getEntry("tx");;
-    public NetworkTableEntry frontty = frontTable.getEntry("ty");;
-    public NetworkTableEntry fronttv = frontTable.getEntry("tv");;
+  public NetworkTable frontTable = NetworkTableInstance.getDefault().getTable("limelight-front");
+  public NetworkTableEntry frontta = frontTable.getEntry("ta");;
+  public NetworkTableEntry fronttx = frontTable.getEntry("tx");;
+  public NetworkTableEntry frontty = frontTable.getEntry("ty");;
+  public NetworkTableEntry fronttv = frontTable.getEntry("tv");;
 
-    public NetworkTable backTable = NetworkTableInstance.getDefault().getTable("limelight-back");
-    public NetworkTableEntry ledMode = backTable.getEntry("ledMode");
-    public NetworkTableEntry backta = backTable.getEntry("ta");
-    public NetworkTableEntry backtx = backTable.getEntry("tx");
-    public NetworkTableEntry backty = backTable.getEntry("ty");
-    public NetworkTableEntry backtv = backTable.getEntry("tv");
+  public NetworkTable backTable = NetworkTableInstance.getDefault().getTable("limelight-back");
+  public NetworkTableEntry ledMode = backTable.getEntry("ledMode");
+  public NetworkTableEntry backta = backTable.getEntry("ta");
+  public NetworkTableEntry backtx = backTable.getEntry("tx");
+  public NetworkTableEntry backty = backTable.getEntry("ty");
+  public NetworkTableEntry backtv = backTable.getEntry("tv");
 
   public Limelights() {
   }
@@ -40,11 +40,11 @@ public class Limelights extends SubsystemBase {
 
     // If A is held down, run a PID loop to center the turret.
     if(v == 1){
-        if (x > targetX || x < targetX) {
-            chassisAdjust = Kp * x;
-        } else{
-            chassisAdjust = 0;
-        }
+      if (x > targetX || x < targetX) {
+        chassisAdjust = Kp * x;
+      } else{
+        chassisAdjust = 0;
+      }
     }
     return chassisAdjust;
   }

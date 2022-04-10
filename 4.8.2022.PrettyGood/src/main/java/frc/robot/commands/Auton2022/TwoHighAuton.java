@@ -1,4 +1,4 @@
-package frc.robot.commands.TwoHighAuton;
+package frc.robot.commands.Auton2022;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -16,7 +16,7 @@ import frc.robot.subsystems.Solenoids;
 import static frc.robot.Constants.*;
 
 /** An example command that uses an example subsystem. */
-public class ProductionTwoHigh extends CommandBase {
+public class TwoHighAuton extends CommandBase {
 
   Drivetrain m_drivetrain;
   Intake m_intake;
@@ -29,7 +29,7 @@ public class ProductionTwoHigh extends CommandBase {
   public Timer time;
   private int autonTargetVelocity = 780;
 
-  public ProductionTwoHigh(Drivetrain drivetrain, Intake intake, Solenoids solenoids, Shooter shooter, Limelights limeLights, Conveyor conveyor, BreakBeams breakBeams) {
+  public TwoHighAuton(Drivetrain drivetrain, Intake intake, Solenoids solenoids, Shooter shooter, Limelights limeLights, Conveyor conveyor, BreakBeams breakBeams) {
     time = new Timer();
 
     m_drivetrain = drivetrain;
@@ -62,7 +62,7 @@ public class ProductionTwoHigh extends CommandBase {
       } else{
         m_drivetrain.drivetrainMecanum.driveCartesian(0.48, 0, m_limeLights.horizontalAutoFront());
       }
-      m_intake.intakeMotor.set(IntakeConstants.intakeMotorPower);
+      m_intake.intakeMotor.set(intakeMotorPower);
     }
     if(time.get()>2.2 && time.get()<5){
       m_drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);

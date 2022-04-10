@@ -18,13 +18,11 @@ public final class Constants {
     public static int frontRight1ID = 20;
     public static int backLeft1ID = 15;
     public static int backRight1ID = 25;
-    public static double powerRegulator = 1;
-    public static double deadzone = .13; //originally .20
+    public static double powerRegulator = 2;
+    public static double deadzone = 0.02; //originally .13
 //=============================Intake Constants==========================================//
-    public static final class IntakeConstants{
     public static int intakeMotorID = 30;
     public static double intakeMotorPower = 0.70;
-    }
 //=============================Conveyor Constants========================================//
     public static int conveyorMotorID = 35;
     public static double conveyorMotorPower = .8;

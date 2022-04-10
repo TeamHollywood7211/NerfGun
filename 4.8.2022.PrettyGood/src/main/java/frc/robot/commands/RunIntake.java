@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.BreakBeams;
 import frc.robot.subsystems.Intake;
-import frc.robot.Constants.IntakeConstants;
+import static frc.robot.Constants.*;
 
 public class RunIntake extends CommandBase {
   //private final Harvester m_harvester;
@@ -75,7 +75,7 @@ public class RunIntake extends CommandBase {
 
       
         if(RobotContainer.intakeButton.get()){
-          m_intake.intakeMotor.set(IntakeConstants.intakeMotorPower);
+          m_intake.intakeMotor.set(intakeMotorPower);
         }  else{
           m_intake.intakeMotor.set(0);
         }

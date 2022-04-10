@@ -66,20 +66,20 @@ public class Drivetrain extends SubsystemBase {
 
     drivetrainMecanum = new MecanumDrive(frontLeftMotor1, backLeftMotor1, frontRightMotor1, backRightMotor1);
     drivetrainMecanum.setSafetyEnabled(false);
-
     
     // PID coefficients
     kP = 0.03; 
     kI = 0.002;
     kD = 0.002; 
-    kIz = 0.002; 
+    kIz = 0.001; 
     kFF = 0.000156; 
-    kMaxOutput = 1; 
-    kMinOutput = -1;
+    kMaxOutput = 0.5; 
+    kMinOutput = -0.5;
 
     //// Smart Motion Coefficients
+    allowedErr = 1;
     maxVel = 1000; // rpm
-    maxAccel = 500;
+    maxAccel = 200;
 
     // display PID coefficients on SmartDashboard
     SmartDashboard.putNumber("P Gain", kP);
@@ -200,11 +200,39 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("bRMotorSpeed", backRightMotorEncoder.getVelocity());
   }
 
-  public void setPosition(double position){
+  public void setPositionDrivetrain(double position){
     frontLeftMotorPID.setReference(position, ControlType.kPosition);
     backLeftMotorPID.setReference(position, ControlType.kPosition);
     frontRightMotorPID.setReference(position, ControlType.kPosition);
     backRightMotorPID.setReference(position, ControlType.kPosition);
+  }
+  
+  public void resetDrivetrainEncoders(){
+    frontLeftMotorEncoder.setPosition(0);
+    backLeftMotorEncoder.setPosition(0);
+    frontRightMotorEncoder.setPosition(0);
+    backRightMotorEncoder.setPosition(0);
+  }
+
+  public void setPositionLR(double leftMotorsPosition, double rightMotorsPosition){
+    frontLeftMotorPID.setReference(leftMotorsPosition, ControlType.kPosition);
+    backLeftMotorPID.setReference(leftMotorsPosition, ControlType.kPosition);
+    frontRightMotorPID.setReference(rightMotorsPosition, ControlType.kPosition);
+    backRightMotorPID.setReference(rightMotorsPosition, ControlType.kPosition);
+  }
+
+  public double getFrontMotorPositions(){
+    double frontLeftMotorPosition = frontLeftMotorEncoder.getPosition();
+    double frontRightMotorPosition = frontRightMotorEncoder.getPosition();
+    return (frontLeftMotorPosition+frontRightMotorPosition)/2;
+  }
+
+  public double getMotorPositions(String whichSide){
+    if(whichSide == "L"){
+      return frontLeftMotorEncoder.getPosition();
+    } else{
+      return frontRightMotorEncoder.getPosition();
+    }
   }
 
   public void resetDriveMotorControllers(){
@@ -239,6 +267,7 @@ public class Drivetrain extends SubsystemBase {
     frontRightMotorPID.setD(kD);
     backRightMotorPID.setD(kD);
 
+    //controls zone where I will take effect
     frontLeftMotorPID.setIZone(kIz);
     backLeftMotorPID.setIZone(kIz);
     frontRightMotorPID.setIZone(kIz);
@@ -249,6 +278,7 @@ public class Drivetrain extends SubsystemBase {
     frontRightMotorPID.setFF(kFF);
     backRightMotorPID.setFF(kFF);
 
+    //voltage output control
     frontLeftMotorPID.setOutputRange(kMinOutput, kMaxOutput);
     backLeftMotorPID.setOutputRange(kMinOutput, kMaxOutput);
     frontRightMotorPID.setOutputRange(kMinOutput, kMaxOutput);
@@ -270,9 +300,16 @@ public class Drivetrain extends SubsystemBase {
     frontRightMotorPID.setSmartMotionMaxAccel(maxAccel, slotID);
     backRightMotorPID.setSmartMotionMaxAccel(maxAccel, slotID);
 
+    //error that the motors wont react while its within
     frontLeftMotorPID.setSmartMotionAllowedClosedLoopError(allowedErr, slotID);
     backLeftMotorPID.setSmartMotionAllowedClosedLoopError(allowedErr, slotID);
     frontRightMotorPID.setSmartMotionAllowedClosedLoopError(allowedErr, slotID);
     backRightMotorPID.setSmartMotionAllowedClosedLoopError(allowedErr, slotID);
+
+    //burns the flash to the motor controllers, duh
+    frontLeftMotor1.burnFlash();
+    backLeftMotor1.burnFlash();
+    frontRightMotor1.burnFlash();
+    backRightMotor1.burnFlash();
   }
 }

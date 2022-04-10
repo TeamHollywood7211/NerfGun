@@ -7,10 +7,12 @@
 
 package frc.robot;
 
-import frc.robot.commands.Auton2022.ShootBackUpAuton;
-import frc.robot.commands.Auton2022.SimpleAuton;
-import frc.robot.commands.MultiStepAuton.LowHighSequential;
-import frc.robot.commands.TwoHighAuton.ProductionTwoHigh;
+import frc.robot.commands.Auton2022.TwoHighAuton;
+import frc.robot.commands.Auton2022.OneLowAuton;
+import frc.robot.commands.Auton2022.TwoLowAuton;
+import frc.robot.commands.Auton2022.FourHighAutonComGroup.FourHighParallelGroup;
+import frc.robot.commands.Auton2022.FourHighAutonComGroup.FourStep3;
+import frc.robot.commands.Auton2022.OneLowOneHighComGroup.OneLowOneHighAuton;
 import frc.robot.subsystems.BreakBeams;
 import frc.robot.subsystems.Climbers;
 import frc.robot.subsystems.Conveyor;
@@ -28,7 +30,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.Constants.IntakeConstants;
 import static frc.robot.Constants.*;
 
 
@@ -45,7 +46,7 @@ public class RobotContainer {
   // The robot's subsystems
   public final GyroAccelerometer m_gyroAccel = new GyroAccelerometer();
   public final Conveyor m_conveyor = new Conveyor();
-  public final Intake m_intake = new Intake(IntakeConstants.intakeMotorID);
+  public final Intake m_intake = new Intake(intakeMotorID);
   public final Shooter m_shooter = new Shooter();
   public final Climbers m_climbers = new Climbers();
   public final BreakBeams m_breakBeams = new BreakBeams();
@@ -54,15 +55,17 @@ public class RobotContainer {
   public final Limelights m_limelights = new Limelights();
 
   //The robot's commands
-  public SimpleAuton m_SimpleAuton = new SimpleAuton(m_drivetrain, m_intake, m_solenoids, m_shooter, m_conveyor, m_breakBeams);
-  public ShootBackUpAuton m_ShootBackUpAuton = new ShootBackUpAuton(m_drivetrain, m_shooter, m_conveyor);
-  public LowHighSequential m_LowHighSequential = new LowHighSequential(m_intake, m_drivetrain, m_conveyor, m_solenoids, m_shooter, m_breakBeams, m_limelights);
-  public ProductionTwoHigh m_ProductionTwoHigh = new ProductionTwoHigh(m_drivetrain, m_intake, m_solenoids, m_shooter, m_limelights, m_conveyor, m_breakBeams);
+  // private FourStep3 m_testing = new FourStep3(m_drivetrain, m_gyroAccel);
+  private TwoLowAuton m_twoLowAuton = new TwoLowAuton(m_drivetrain, m_intake, m_solenoids, m_shooter, m_conveyor, m_breakBeams);
+  private OneLowAuton m_oneLowAuton = new OneLowAuton(m_drivetrain, m_shooter, m_conveyor);
+  private OneLowOneHighAuton m_oneLowOneHighAuton = new OneLowOneHighAuton(m_intake, m_drivetrain, m_conveyor, m_solenoids, m_shooter, m_breakBeams, m_limelights);
+  private TwoHighAuton m_twoHighAuton = new TwoHighAuton(m_drivetrain, m_intake, m_solenoids, m_shooter, m_limelights, m_conveyor, m_breakBeams);
+  public FourHighParallelGroup m_fourHighAuton = new FourHighParallelGroup(m_conveyor, m_drivetrain, m_intake, m_limelights, m_shooter, m_solenoids, m_gyroAccel);
 
   public SendableChooser<Command> autonChooser = new SendableChooser<>();
 
   public static final Joystick leftJoystick = new Joystick(0);
-  public static final JoystickButton calibrateButton = new JoystickButton(leftJoystick, 11);
+  public static final JoystickButton calibrateButton = new JoystickButton(leftJoystick, 16);
   public static final JoystickButton climbUp2Button = new JoystickButton(leftJoystick, 8);
   public static final JoystickButton climbDown2Button = new JoystickButton(leftJoystick, 10);
   
@@ -150,10 +153,11 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    autonChooser.setDefaultOption("ShootTwoHigh", m_ProductionTwoHigh);
-    autonChooser.addOption("ShootTwoLow", m_SimpleAuton);
-    autonChooser.addOption("OneLow", m_ShootBackUpAuton);
-    autonChooser.addOption("OneLowOneHigh", m_LowHighSequential);
+    autonChooser.setDefaultOption("Shoot Two High", m_twoHighAuton);
+    autonChooser.addOption("Shoot Two Low", m_twoLowAuton);
+    autonChooser.addOption("One Low", m_oneLowAuton);
+    autonChooser.addOption("One Low One High", m_oneLowOneHighAuton);
+    autonChooser.addOption("Four High", m_fourHighAuton);
     SmartDashboard.putData(autonChooser);
     // Configure the button bindings
     configureButtonBindings();

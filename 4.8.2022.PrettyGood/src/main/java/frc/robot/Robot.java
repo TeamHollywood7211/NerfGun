@@ -16,7 +16,7 @@ import frc.robot.commands.RunConveyor;
 import frc.robot.commands.RunDoubleSolenoids;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
-import frc.robot.commands.TwoHighAuton.TwoHighAutonWIP;
+import frc.robot.commands.Auton2022.FourHighAutonComGroup.FourHighAuton;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -29,7 +29,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Command m_drivetrainCommand;
   private Command m_runIntake;
-  private Command m_twoHighAutonWIP;
   private Command m_runShooter;
   private Command m_runConveyor;
   private Command m_runClimbers;
@@ -47,7 +46,6 @@ public class Robot extends TimedRobot {
     m_robotContainer.m_drivetrain.resetDriveMotorControllers();
     m_drivetrainCommand = new DrivetrainCommand(m_robotContainer.m_drivetrain, m_robotContainer.m_gyroAccel, m_robotContainer.m_limelights);
     m_runIntake = new RunIntake(m_robotContainer.m_intake, m_robotContainer.m_breakBeams);
-    m_twoHighAutonWIP = new TwoHighAutonWIP(m_robotContainer.m_drivetrain);
     m_runShooter = new RunShooter(m_robotContainer.m_shooter);
     m_runConveyor = new RunConveyor(m_robotContainer.m_conveyor);
     m_runClimbers = new RunClimbers(m_robotContainer.m_climbers);
@@ -82,6 +80,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    m_robotContainer.m_drivetrain.resetDrivetrainEncoders();
     if(DriverStation.getAlliance().toString() == "Blue"){
       m_robotContainer.m_limelights.frontTable.getEntry("pipeline").setNumber(1);
     } else{
@@ -110,13 +109,12 @@ public class Robot extends TimedRobot {
     }
     m_robotContainer.m_limelights.frontTable.getEntry("camMode").setNumber(1);
     m_robotContainer.m_limelights.frontTable.getEntry("pipeline").setNumber(2);
-    m_twoHighAutonWIP.schedule();
-    // m_drivetrainCommand.schedule();
-    // m_runIntake.schedule();
-    // m_runShooter.schedule();
-    // m_runDoubleSolenoids.schedule();
-    // m_runClimbers.schedule();
-    // m_runConveyor.schedule();
+    m_drivetrainCommand.schedule();
+    m_runIntake.schedule();
+    m_runShooter.schedule();
+    m_runDoubleSolenoids.schedule();
+    m_runClimbers.schedule();
+    m_runConveyor.schedule();
     System.out.print("all commands are scheduled.");
   }
 

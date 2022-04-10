@@ -14,7 +14,7 @@ import static frc.robot.Constants.*;
 
 
 /** An example command that uses an example subsystem. */
-public class SimpleAuton extends CommandBase {
+public class TwoLowAuton extends CommandBase {
 
   public Timer time;
   Drivetrain m_drivetrain;
@@ -24,7 +24,7 @@ public class SimpleAuton extends CommandBase {
   Conveyor m_conveyor;
   BreakBeams m_breakBeams;
 
-  public SimpleAuton(Drivetrain drivetrain, Intake intake, Solenoids solenoids, Shooter shooter, Conveyor conveyor, BreakBeams breakBeams) {
+  public TwoLowAuton(Drivetrain drivetrain, Intake intake, Solenoids solenoids, Shooter shooter, Conveyor conveyor, BreakBeams breakBeams) {
     time = new Timer();
     m_drivetrain = drivetrain;
     m_intake = intake;
@@ -55,7 +55,7 @@ public class SimpleAuton extends CommandBase {
       m_conveyor.conveyorMotor.set(0);
       m_shooter.SetShootersZero();
       m_drivetrain.drivetrainMecanum.driveCartesian(0.50, 0, 0);
-      m_intake.intakeMotor.set(IntakeConstants.intakeMotorPower);
+      m_intake.intakeMotor.set(intakeMotorPower);
     }
     while(time.get()>4.2 && time.get()<6){
       m_drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);

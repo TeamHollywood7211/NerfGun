@@ -8,18 +8,10 @@ public class ExampleCommand extends CommandBase {
 
   //private final Subsystem m_subsystem;
 
-  /**
-   * Creates a new RunConveyor Command.
-   *
-   * @param subsystem The subsystem used by this command.
-   * 
-   */
 
   public ExampleCommand(/*Subsystem subsystem*/) {
 
     //m_subsystem = subsystem;
-
-    // Use addRequirements() here to declare subsystem dependencies.
 
     addRequirements(/*subsystem*/);
 
