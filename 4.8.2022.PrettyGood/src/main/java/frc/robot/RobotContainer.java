@@ -21,6 +21,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelights;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Solenoids;
+import edu.wpi.first.hal.PowerDistributionStickyFaults;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -174,6 +175,14 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+  }
+
+  public void clearAllStickyFaults(){
+      m_drivetrain.clearDrivetrainErrors();
+      m_intake.clearIntakeErrors();
+      m_shooter.clearShooterErrors();
+      m_climbers.clearClimberErrors();
+      m_conveyor.clearConveyorErrors();  
   }
 }
 

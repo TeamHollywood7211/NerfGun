@@ -57,28 +57,25 @@ public class TwoHighAuton extends CommandBase {
       m_solenoids.intakeSolenoid.set(Value.kForward);
     }
     if(time.get()>1 && time.get()<2.2){
-      if(DriverStation.getAlliance().toString() == "Blue"){
-        m_drivetrain.drivetrainMecanum.driveCartesian(0.48, 0, 0);
-      } else{
-        m_drivetrain.drivetrainMecanum.driveCartesian(0.48, 0, m_limeLights.horizontalAutoFront());
-      }
+      m_drivetrain.drivetrainMecanum.driveCartesian(0.48, 0, 0);
       m_intake.intakeMotor.set(intakeMotorPower);
     }
     if(time.get()>2.2 && time.get()<5){
       m_drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);
       if(m_breakBeams.HopperBeamOutput() == true){
-        if(m_breakBeams.MiddleBeamOutput() == false && m_breakBeams.TopBeamOutput() == false){ //if there isnt a ball in the middle or at the top then
-          while(m_breakBeams.MiddleBeamOutput() == false){ //run conveyor until there is a ball in the middle
+        if(m_breakBeams.MiddleBeamOutput() == false){ //if there isnt a ball in the middle or at the top then
+          if(m_breakBeams.MiddleBeamOutput() != true){ //run conveyor until there is a ball in the middle
             m_conveyor.conveyorMotor.set(conveyorMotorPower);
           }
         }
-        else if(m_breakBeams.MiddleBeamOutput() == true && m_breakBeams.TopBeamOutput() == false){ //if there is a ball in the middle or at the top, then
-          while(m_breakBeams.TopBeamOutput()==false){ //run the conveyor until there is a ball at the top
+        else if(m_breakBeams.MiddleBeamOutput() == true){ //if there is a ball in the middle or at the top, then
+          if(m_breakBeams.MiddleBeamOutput()!=false){ //run the conveyor until there is a ball at the top
             m_conveyor.conveyorMotor.set(conveyorMotorPower);
           }
         }
-        m_conveyor.conveyorMotor.set(0);//duh
-        m_intake.intakeMotor.set(0);
+        else{
+          m_conveyor.conveyorMotor.set(0);//duh
+        }
       }
     } 
     if(time.get() > 5 && time.get() < 7){
@@ -96,6 +93,7 @@ public class TwoHighAuton extends CommandBase {
     }
     if(time.get() > 10 && time.get() < 15){
       m_conveyor.conveyorMotor.set(0);
+      m_intake.intakeMotor.set(0);
       m_shooter.SetShootersZero();
       m_drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);
     }

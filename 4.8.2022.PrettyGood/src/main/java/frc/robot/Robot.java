@@ -43,13 +43,14 @@ public class Robot extends TimedRobot {
     UsbCamera frontCamera = CameraServer.startAutomaticCapture("frontCamera", 0);
     frontCamera.setResolution(320, 240);
     m_robotContainer = new RobotContainer();
-    m_robotContainer.m_drivetrain.resetDriveMotorControllers();
     m_drivetrainCommand = new DrivetrainCommand(m_robotContainer.m_drivetrain, m_robotContainer.m_gyroAccel, m_robotContainer.m_limelights);
     m_runIntake = new RunIntake(m_robotContainer.m_intake, m_robotContainer.m_breakBeams);
     m_runShooter = new RunShooter(m_robotContainer.m_shooter);
     m_runConveyor = new RunConveyor(m_robotContainer.m_conveyor);
     m_runClimbers = new RunClimbers(m_robotContainer.m_climbers);
     m_runDoubleSolenoids = new RunDoubleSolenoids(m_robotContainer.m_solenoids);
+    m_robotContainer.m_drivetrain.resetDriveMotorControllers();
+    m_robotContainer.clearAllStickyFaults();
   }
 
   /**
@@ -81,12 +82,12 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_robotContainer.m_drivetrain.resetDrivetrainEncoders();
-    if(DriverStation.getAlliance().toString() == "Blue"){
-      m_robotContainer.m_limelights.frontTable.getEntry("pipeline").setNumber(1);
-    } else{
-      m_robotContainer.m_limelights.frontTable.getEntry("pipeline").setNumber(0);
-    }
-    m_robotContainer.m_limelights.frontTable.getEntry("camMode").setNumber(0);
+    // if(DriverStation.getAlliance().toString() == "Blue"){
+    //   m_robotContainer.m_limelights.frontTable.getEntry("pipeline").setNumber(1);
+    // } else{
+    //   m_robotContainer.m_limelights.frontTable.getEntry("pipeline").setNumber(0);
+    // }
+    // m_robotContainer.m_limelights.frontTable.getEntry("camMode").setNumber(0);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     System.out.print("autonomous is initialized");
     // schedule the autonomous command (example)

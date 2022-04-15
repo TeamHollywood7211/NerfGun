@@ -31,7 +31,7 @@ public class FourStep4 extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_drivetrain.setPositionDrivetrain(76);
+        m_drivetrain.setPositionDrivetrain(80);
         if(m_breakBeams.HopperBeamOutput() == true){
             if(m_breakBeams.MiddleBeamOutput() == false){ //if there isnt a ball in the middle or at the top then
                 if(m_breakBeams.MiddleBeamOutput() != true){ //run conveyor until there is a ball in the middle
@@ -56,7 +56,7 @@ public class FourStep4 extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-    if(m_drivetrain.getFrontMotorPositions() > 74 && time.get() > 4){
+    if(m_drivetrain.getFrontMotorPositions() > 78 && time.get() > 4){
         return true;
     }
     return false;

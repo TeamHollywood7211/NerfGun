@@ -25,8 +25,8 @@ public class Shooter extends SubsystemBase {
     
     //pid constants
     double kP = 0.0018;
-    double kI = 0.00076;
-    double kD = 0.00025;
+    double kI = 0.00073;
+    double kD = 0.00028;
     
     shooterLeftMotor = new CANSparkMax(shooterLeftMotorID, MotorType.kBrushless);
     shooterRightMotor = new CANSparkMax(shooterRightMotorID, MotorType.kBrushless);
@@ -71,4 +71,10 @@ public class Shooter extends SubsystemBase {
     double rightShooterMotorVelocity = shooterRightEncoder.getVelocity();
     return (leftShooterMotorVelocity+rightShooterMotorVelocity)/2;
   }
+
+  public void clearShooterErrors(){
+      shooterLeftMotor.clearFaults();
+      shooterRightMotor.clearFaults();
+  }
+
 }

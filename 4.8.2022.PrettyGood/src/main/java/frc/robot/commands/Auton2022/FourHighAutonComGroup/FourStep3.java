@@ -9,7 +9,7 @@ import frc.robot.subsystems.GyroAccelerometer;
 public class FourStep3 extends CommandBase {
     private final Drivetrain m_drivetrain;
     private final GyroAccelerometer m_gyroAccel;
-    double setAngle = 163;
+    double setAngle = 162;
     private Timer time;
 
     public FourStep3(Drivetrain drivetrain, GyroAccelerometer gyroAccel) {
@@ -34,7 +34,9 @@ public class FourStep3 extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        m_drivetrain.resetDrivetrainEncoders();
+    }
 
     // Returns true when the command should end.
     @Override

@@ -26,4 +26,8 @@ public class Conveyor extends SubsystemBase {
   public void setPower(double power){
     conveyorMotor.set(power);
   }
+
+  public void clearConveyorErrors(){
+      conveyorMotor.clearFaults();
+  }
 }

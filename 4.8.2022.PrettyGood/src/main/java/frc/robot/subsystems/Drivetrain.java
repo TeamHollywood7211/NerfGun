@@ -235,6 +235,13 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
+  public void clearDrivetrainErrors(){
+      frontLeftMotor1.clearFaults();
+      backLeftMotor1.clearFaults();
+      frontRightMotor1.clearFaults();
+      backRightMotor1.clearFaults();
+  }
+
   public void resetDriveMotorControllers(){
     frontLeftMotor1.restoreFactoryDefaults();
     backLeftMotor1.restoreFactoryDefaults();

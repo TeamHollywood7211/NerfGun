@@ -42,4 +42,18 @@ public class Climbers extends SubsystemBase {
     SmartDashboard.putNumber("climberLeft2Position", ClimberR2Encoder.getPosition());
     SmartDashboard.putNumber("climberRight2Position", ClimberL2Encoder.getPosition());
   }
+
+  public void resetClimbMotorControllers(){
+    ClimberL1.restoreFactoryDefaults();
+    ClimberL2.restoreFactoryDefaults();
+    ClimberR1.restoreFactoryDefaults();
+    ClimberR2.restoreFactoryDefaults();
+  }
+
+  public void clearClimberErrors(){
+    ClimberL1.clearFaults();
+    ClimberL2.clearFaults();
+    ClimberR1.clearFaults();
+    ClimberR2.clearFaults();
+  }
 }

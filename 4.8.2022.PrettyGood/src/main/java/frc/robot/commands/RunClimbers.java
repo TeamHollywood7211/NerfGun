@@ -38,7 +38,7 @@ public class RunClimbers extends CommandBase {
     //code for moving stage two climb arms in or out, to min or max points.
     if((RobotContainer.climbUp2Button.get() || RobotContainer.climbUp2ButtonOperator()) && (m_climbers.ClimberL2Encoder.getPosition() < 360 || m_climbers.ClimberR2Encoder.getPosition() < 360)){
       m_climbers.ClimberL2.set(climberSpeedStage2);
-      m_climbers.ClimberR2.set(climberSpeedStage2+.01);
+      m_climbers.ClimberR2.set(climberSpeedStage2);
     } else if((RobotContainer.climbDown2Button.get() || RobotContainer.climbDown2ButtonOperator()) && (m_climbers.ClimberL2Encoder.getPosition() > 0 || m_climbers.ClimberR2Encoder.getPosition() > 0)){
       m_climbers.ClimberL2.set(-climberSpeedStage2);
       m_climbers.ClimberR2.set(-climberSpeedStage2);
