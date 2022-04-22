@@ -28,7 +28,7 @@ public class RunConveyor extends CommandBase {
       if(RobotContainer.conveyorUpButton.get()){
         m_conveyor.conveyorMotor.set(conveyorMotorPower);
       }
-      else if(RobotContainer.conveyorDownButton.get()){
+      else if(RobotContainer.conveyorDownButton.get() || RobotContainer.getRidOfBallButton()){
         m_conveyor.conveyorMotor.set(-conveyorMotorPower);
       } 
       else{

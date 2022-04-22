@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -76,6 +77,8 @@ public class RunIntake extends CommandBase {
       
         if(RobotContainer.intakeButton.get()){
           m_intake.intakeMotor.set(intakeMotorPower);
+        } else if(RobotContainer.getRidOfBallButton()){
+          m_intake.intakeMotor.set(-intakeMotorPower);
         }  else{
           m_intake.intakeMotor.set(0);
         }

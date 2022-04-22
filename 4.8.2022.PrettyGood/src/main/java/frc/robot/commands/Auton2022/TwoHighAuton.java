@@ -62,21 +62,21 @@ public class TwoHighAuton extends CommandBase {
     }
     if(time.get()>2.2 && time.get()<5){
       m_drivetrain.drivetrainMecanum.driveCartesian(0, 0, 0);
-      if(m_breakBeams.HopperBeamOutput() == true){
-        if(m_breakBeams.MiddleBeamOutput() == false){ //if there isnt a ball in the middle or at the top then
-          if(m_breakBeams.MiddleBeamOutput() != true){ //run conveyor until there is a ball in the middle
-            m_conveyor.conveyorMotor.set(conveyorMotorPower);
-          }
-        }
-        else if(m_breakBeams.MiddleBeamOutput() == true){ //if there is a ball in the middle or at the top, then
-          if(m_breakBeams.MiddleBeamOutput()!=false){ //run the conveyor until there is a ball at the top
-            m_conveyor.conveyorMotor.set(conveyorMotorPower);
-          }
-        }
-        else{
-          m_conveyor.conveyorMotor.set(0);//duh
-        }
-      }
+      // if(m_breakBeams.HopperBeamOutput() == true){
+      //   if(m_breakBeams.MiddleBeamOutput() == false){ //if there isnt a ball in the middle or at the top then
+      //     if(m_breakBeams.MiddleBeamOutput() != true){ //run conveyor until there is a ball in the middle
+      //       m_conveyor.conveyorMotor.set(conveyorMotorPower);
+      //     }
+      //   }
+      //   // else if(m_breakBeams.MiddleBeamOutput() == true){ //if there is a ball in the middle or at the top, then
+      //   //   if(m_breakBeams.MiddleBeamOutput()!=false){ //run the conveyor until there is a ball at the top
+      //   //     m_conveyor.conveyorMotor.set(conveyorMotorPower);
+      //   //   }
+      //   // }
+      //   else{
+      //     m_conveyor.conveyorMotor.set(0);//duh
+      //   }
+      // }
     } 
     if(time.get() > 5 && time.get() < 7){
       m_limeLights.backTable.getEntry("ledMode").setNumber(3);

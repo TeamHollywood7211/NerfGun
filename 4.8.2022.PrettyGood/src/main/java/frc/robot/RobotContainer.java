@@ -111,7 +111,7 @@ public class RobotContainer {
     }
   }
 
-  public static boolean shootSafeWall(){
+  public static boolean getRidOfBallButton(){
     if(operatorJoystick.getRawAxis(2)>0.1){
       return true;
     } else{
