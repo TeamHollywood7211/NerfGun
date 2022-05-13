@@ -9,7 +9,7 @@ import static frc.robot.Constants.*;
 /*import edu.wpi.first.wpilibj.smartdashboard.*;*/
 
 
-public class RunShooter extends CommandBase {  
+public class RunShooter extends CommandBase {
   Shooter m_shooter;
 
   public RunShooter(Shooter shooter) {
@@ -32,7 +32,7 @@ public class RunShooter extends CommandBase {
     if(RobotContainer.shootSlowTrigger()){
       m_shooter.SetShootersPID(targetShooterVelocitySlow);
     } else if(RobotContainer.shootHighTrigger.get()){
-      m_shooter.SetShootersPID(targetShooterVelocityHigh-35);
+      m_shooter.SetShootersPID(targetShooterVelocityHigh);
     // } else if(RobotContainer.shootSafeWall()){
     //   m_shooter.SetShootersPID(835);
     } else{

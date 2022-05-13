@@ -18,15 +18,17 @@ public class Shooter extends SubsystemBase {
   public RelativeEncoder shooterRightEncoder;
   public PIDController shooterLeftPID;
   public PIDController shooterRightPID;
+  
+  // public double shooterSpeed = 730;
 
   public Shooter() {
     //these variables are the constants for the pid loop, kP is proportional, kI is integral, kD is derivative
     //look up "pid constant tuning effect chart" to find what changing these might do
-    
     //pid constants
     double kP = 0.0018;
     double kI = 0.00073;
     double kD = 0.00028;
+
     
     shooterLeftMotor = new CANSparkMax(shooterLeftMotorID, MotorType.kBrushless);
     shooterRightMotor = new CANSparkMax(shooterRightMotorID, MotorType.kBrushless);
@@ -38,10 +40,16 @@ public class Shooter extends SubsystemBase {
 
     shooterLeftEncoder = shooterLeftMotor.getEncoder();
     shooterRightEncoder = shooterRightMotor.getEncoder();
+
+    // SmartDashboard.putNumber("Shooter Speed", shooterSpeed);
   }
 
   @Override
   public void periodic() {
+    // double finalShooterSpeed = SmartDashboard.getNumber("Shooter Speed", 0);
+    // if(shooterSpeed != finalShooterSpeed){
+    //   shooterSpeed = finalShooterSpeed;
+    // }
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("leftShooterMotorVelocity", shooterLeftEncoder.getVelocity());
     SmartDashboard.putNumber("rightShooterMotorVelocity", shooterRightEncoder.getVelocity());
@@ -62,7 +70,7 @@ public class Shooter extends SubsystemBase {
     shooterRightMotor.set(shooterMotorPowerSlow);
     shooterLeftMotor.set(shooterMotorPowerSlow+.035);
   }
-  public void SetShootersPID(int targetVelocity){
+  public void SetShootersPID(double targetVelocity){
     shooterLeftMotor.set(shooterLeftPID.calculate(shooterLeftEncoder.getVelocity(), targetVelocity));
     shooterRightMotor.set(shooterRightPID.calculate(shooterRightEncoder.getVelocity(), targetVelocity));
   }
